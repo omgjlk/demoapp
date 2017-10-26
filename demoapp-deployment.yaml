@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demoapp
+  name: demoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demoapp
+    spec:
+      containers:
+      - image: demoapp:demo
+        name: demoapp
+        resources: {}
+        volumeMounts:
+          - name: demosource
+            mountPath: /demoapp/demoapp
+      volumes:
+        - name: demosource
+          hostPath:
+            path: /Users/jkeating/src/derpops/demoapp/demoapp
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demoapp
+  name: demoapp
+spec:
+  ports:
+  - name: "8000"
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  - name: "4444"
+    port: 4444
+    protocol: TCP
+    targetPort: 4444
+  selector:
+    app: demoapp
+  type: NodePort
+status:
+  loadBalancer: {}
