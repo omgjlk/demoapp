@@ -6,7 +6,7 @@ class myHandlers(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        RESPONSE='''Hi there!'''
+        RESPONSE='''Edited code'''
         self.wfile.write(bytes(RESPONSE, 'UTF-8'))
 
 def run(server_class=http.server.HTTPServer, handler_class=myHandlers):
